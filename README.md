@@ -1,2 +1,3 @@
 # AnimeUz
-New Website for Anime information and more addons
+
+AnimeUz is a website project focused on anime information and related add-ons.
