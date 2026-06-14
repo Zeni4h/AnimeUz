@@ -17,37 +17,38 @@ The project is considered MVP-complete when all above items work in production.
 
 ### Project Setup
 
-* [ ] Initialize Next.js project
-* [ ] Configure TypeScript
-* [ ] Configure Tailwind CSS
-* [ ] Setup ESLint
-* [ ] Setup Prettier
+* [x] Initialize Next.js project
+* [x] Configure TypeScript
+* [x] Configure Tailwind CSS v4
+* [x] Setup ESLint
+* [x] Create .env.local and .env.example
 
 ### API Integration
 
-* [ ] Connect to AniList API
-* [ ] Create API service layer
-* [ ] Create Anime Search endpoint
-* [ ] Create Anime Details endpoint
+* [x] Connect to AniList API
+* [x] Create API service layer (lib/anilist/, lib/tmdb/)
+* [x] Create Anime Search endpoint (/api/search)
+* [x] Create Anime Details endpoint (/api/anime/[id])
+* [x] Create Streaming Providers endpoint (/api/anime/[id]/providers)
 
 ### Frontend
 
-* [ ] Create Homepage
-* [ ] Create Anime Search page
-* [ ] Create Anime Details page
+* [x] Create Homepage (trending anime + hero search)
+* [x] Create Anime Search page
+* [x] Create Anime Details page
 
 ### Anime Details Features
 
-* [ ] Display synopsis
-* [ ] Display ratings
-* [ ] Display genres
-* [ ] Display trailers
-* [ ] Display streaming availability
-* [ ] Display region availability
+* [x] Display synopsis (with read-more expand)
+* [x] Display ratings (star rating + numeric score)
+* [x] Display genres
+* [x] Display trailers (YouTube embed with thumbnail)
+* [x] Display streaming availability (TMDB watch providers)
+* [x] Display region availability (7 regions, user-selectable, persisted to localStorage)
 
 ### Deployment
 
-* [ ] Deploy first version
+* [ ] Deploy first version to Vercel
 
 ---
 
