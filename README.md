@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AnimeUz — Discover Anime
 
-## Getting Started
+Anime info site, not streaming. Search titles, open details, see synopsis, score, genres, trailer, where to watch by region.
 
-First, run the development server:
+Live MVP on Vercel with basic features: home trending grid, search, anime details, streaming providers with UZ default.
+
+## Stack
+
+- Next.js 16.2.9 App Router, React 19, TypeScript strict
+- Tailwind CSS v4 (`@import "tailwindcss"`, `@theme` in `src/app/globals.css`, PostCSS plugin)
+- shadcn/ui base-nova (RSC, `components.json`, `src/components/ui/`, `cn` from `cn` package)
+- Data: AniList GraphQL primary, TMDB REST secondary for trailers/providers
+- No DB. No auth. Do not add PostgreSQL/Prisma/auth until explicitly approved.
+
+## Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Env: see `.env.example` (AniList public, `TMDB_Bearer` for providers). App: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/` home — hero search + trending (SSR)
+- `/search?q=` — URL state, SSR results, skeletons
+- `/anime/[id]` — SSR details, OG metadata
+- `/api/search`, `/api/anime/[id]`, `/api/anime/[id]/providers?region=`
 
-## Learn More
+## UI rules
 
-To learn more about Next.js, take a look at the following resources:
+Load `@my-ui` skill for any UI work: `.opencode/skills/my-ui/SKILL.md`.
+5 laws: no native controls, no AI slop, no ALL CAPS/emoji, steady motion, consistency.
+Theme: dark `#0a0a0f`, accent `#7c6df0`, Outfit headings + Inter body.
+shadcn vars in `globals.css` mapped to same palette. Custom `Skeleton.tsx` kept (case collision with shadcn skeleton on Windows).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `ARCHITECTURE.md` — truth
+- `DECISIONS.md` — why
+- `CHANGELOG.md` — what changed
+- `TASKS.md` — backlog only

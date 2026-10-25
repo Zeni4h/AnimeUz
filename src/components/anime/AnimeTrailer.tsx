@@ -126,7 +126,6 @@ export function AnimeTrailer({ trailer, title }: AnimeTrailerProps) {
                 boxShadow: '0 0 0 0 var(--color-accent-glow)',
                 transition: 'transform 200ms, box-shadow 200ms, background 200ms',
               }}
-              className="glow-pulse"
             >
               <span style={{ fontSize: '1.75rem', marginLeft: '4px' }}>▶</span>
             </div>

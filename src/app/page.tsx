@@ -174,6 +174,13 @@ export default async function HomePage() {
                 {s}
               </Link>
             ))}
+            <Link
+              href="/calendar"
+              className="tag-popular"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.25rem 0.75rem' }}
+            >
+              <span style={{ fontSize: '0.9rem' }}>📅</span> Release Calendar
+            </Link>
           </div>
         </div>
       </section>
@@ -220,9 +227,14 @@ export default async function HomePage() {
                 Most popular anime this season
               </p>
             </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Link href="/calendar" className="btn-ghost" style={{ fontSize: '0.875rem' }}>
+              Release Calendar
+            </Link>
             <Link href="/search" className="btn-ghost" style={{ fontSize: '0.875rem' }}>
               Browse All →
             </Link>
+          </div>
           </div>
 
           {/* Grid */}

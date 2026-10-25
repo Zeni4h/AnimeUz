@@ -107,3 +107,31 @@ export interface AniListTrendingResponse {
     };
   };
 }
+
+export interface AniListAiringSchedule {
+  id: number;
+  episode: number;
+  airingAt: number;
+  timeUntilAiring: number;
+  media: {
+    id: number;
+    title: AniListTitle;
+    coverImage: AniListCoverImage;
+    format: string | null;
+    status: string;
+    season: string | null;
+    seasonYear: number | null;
+    genres: string[];
+    episodes: number | null;
+    averageScore: number | null;
+  };
+}
+
+export interface AniListAiringScheduleResponse {
+  data: {
+    Page: {
+      pageInfo: AniListPageInfo;
+      airingSchedules: AniListAiringSchedule[];
+    };
+  };
+}

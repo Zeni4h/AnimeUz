@@ -1,143 +1,39 @@
-# Architecture
+# Architecture (truth as of 2026-10-10)
 
-## System Overview
+## What it is
 
-Anime Information Platform is a full-stack Next.js application.
+Next.js 16 App Router anime discovery site. No streaming. MVP live on Vercel with basic features only: trending, search, details, trailer, providers.
 
-The application provides anime information, streaming availability, trailers, and future anime-related tools.
+## Stack
 
-## Technology Stack
+- Frontend: Next 16.2.9, React 19, TS strict, Tailwind v4 (`@theme`, no config file)
+- UI: shadcn/ui base-nova + hand-rolled `Badge`, `Skeleton`, `StarRating`. `components.json` RSC true, lucide icons.
+- Backend: Next API routes only. No DB, no auth, no Prisma.
+- Data: AniList GraphQL (metadata), TMDB (trailers, providers, 7 regions UZ default `animeuz_region` localStorage)
+- Images: `next/image`, domains AniList/TMDB/YouTube in `next.config.ts`
+- Hosting: Vercel
 
-Frontend:
+## Data flow
 
-* Next.js
-* TypeScript
-* Tailwind CSS
+Browser -> Next page (SSR) -> API route -> AniList/TMDB -> normalize `src/types/anime.ts` -> render.
+Search state in URL. Region in localStorage + query param to providers route.
 
-Backend:
+## Layout
 
-* Next.js API Routes
+- `src/app/` pages + `globals.css` tokens (bg `#0a0a0f`, accent `#7c6df0`, Outfit/Inter)
+- `src/components/ui/` shadcn primitives + custom badges/skeletons
+- `src/components/` `layout/Navbar`, `anime/*`, `search/*`
+- `src/lib/anilist/`, `src/lib/tmdb/`
 
-Database:
+## Rules
 
-* PostgreSQL
-* Prisma ORM
+- Server components by default. `use client` only for Dialog/Select/Popover/Tooltip wrappers.
+- No PG/Prisma/auth until approved. No new UI library as side effect.
+- UI work via `@my-ui` skill. Verify with `npm run build` + `npm run lint`.
 
-External APIs:
+## Next
 
-* AniList API
-* TMDB API
-
-Hosting:
-
-* Vercel
-* Neon PostgreSQL
-
-## High-Level Architecture
-
-Browser
-↓
-Next.js Frontend
-↓
-Next.js API Routes
-↓
-PostgreSQL
-
-External Services:
-
-* AniList API
-* TMDB API
-
-## Phase 1 Data Flow
-
-User searches anime
-
-↓
-
-Frontend Search Page
-
-↓
-
-Search API Route
-
-↓
-
-AniList API
-
-↓
-
-Response Processing
-
-↓
-
-Frontend Results
-
-## Initial Features
-
-### Search
-
-Responsibilities:
-
-* Search anime by title
-* Display search results
-
-### Anime Details
-
-Responsibilities:
-
-* Synopsis
-* Ratings
-* Genres
-* Trailer
-* Streaming providers
-* Region availability
-
-## Planned Future Modules
-
-### Release Calendar
-
-Purpose:
-Track upcoming anime episodes and seasonal releases.
-
-### Watch Order Guides
-
-Purpose:
-Help users navigate complex franchises.
-
-### Character Database
-
-Purpose:
-Provide detailed anime character information.
-
-### Anime News
-
-Purpose:
-Aggregate anime industry news and provide AI-generated summaries.
-
-## Database Strategy
-
-Phase 1:
-Minimal local database.
-
-Use AniList API directly when possible.
-
-Phase 2:
-Cache frequently requested anime data.
-
-Phase 3:
-Store watch-order guides, news summaries, and user-generated content.
-
-## AI Agent Workflow
-
-Before work:
-
-1. Read AI_CONTEXT.md
-2. Read PROJECT_STATE.md
-3. Read TASKS.md
-
-After work:
-
-1. Update TASKS.md
-2. Update CHANGELOG.md
-3. Update PROJECT_STATE.md
-4. Update DECISIONS.md if architecture changes
+- `TooltipProvider` in layout when Tooltip first used
+- Migrate `RegionSelector` to shadcn Select
+- Remove hover lifts/glows per Law 2
+- Backlog in `TASKS.md`

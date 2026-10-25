@@ -4,6 +4,7 @@ import type {
   AniListSearchResponse,
   AniListDetailsResponse,
   AniListTrendingResponse,
+  AniListAiringScheduleResponse,
 } from './types';
 
 const ANILIST_API_URL =
@@ -39,17 +40,27 @@ async function gqlFetch<T>(
 
 // ─── Public helpers ───────────────────────────────────────────────────────────
 
-import { SEARCH_ANIME, GET_ANIME_DETAILS, GET_TRENDING_ANIME } from './queries';
+import { SEARCH_ANIME, GET_ANIME_DETAILS, GET_TRENDING_ANIME, GET_AIRING_SCHEDULE } from './queries';
+import type { SearchFilters } from '@/types/anime';
 
 export async function searchAnime(
   query: string,
   page = 1,
   perPage = 20,
+  filters?: SearchFilters,
 ): Promise<AniListSearchResponse> {
+  const sort = filters?.sort ?? 'SEARCH_MATCH';
   return gqlFetch<AniListSearchResponse>(SEARCH_ANIME, {
     search: query,
     page,
     perPage,
+    genre: filters?.genre,
+    studio: filters?.studio,
+    season: filters?.season,
+    seasonYear: filters?.year,
+    format: filters?.format,
+    status: filters?.status,
+    sort: Array.isArray(sort) ? sort : [sort],
   });
 }
 
@@ -64,6 +75,16 @@ export async function getTrendingAnime(
   perPage = 18,
 ): Promise<AniListTrendingResponse> {
   return gqlFetch<AniListTrendingResponse>(GET_TRENDING_ANIME, {
+    page,
+    perPage,
+  });
+}
+
+export async function getAiringSchedule(
+  page = 1,
+  perPage = 50,
+): Promise<AniListAiringScheduleResponse> {
+  return gqlFetch<AniListAiringScheduleResponse>(GET_AIRING_SCHEDULE, {
     page,
     perPage,
   });

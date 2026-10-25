@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] - 2026-10-10
+
+### Added
+
+- Search filters: genre, studio, year, season, format, status, sort via shadcn `Select` (Law 1: no native controls)
+- Release calendar page (`/calendar`) with episode air schedule grouped by day, expandable cards
+- AniList GraphQL query `GET_AIRING_SCHEDULE` for upcoming episodes
+
+### Fixed
+
+- Law 2 cleanup: removed hover `translateY` lifts and `glow-pulse` animations from `.card:hover`, `.btn-primary:hover`, `.glow-pulse` in `globals.css`
+- `AnimeTrailer` play button no longer uses `glow-pulse` animation
+
+### Changed
+
+- `SEARCH_ANIME` GraphQL query extended with `genre_in`, `studio`, `season`, `seasonYear`, `format`, `status`, `sort` variables
+- Search API route (`/api/search`) accepts filter params; search page (`/search`) includes `FilterBar` component
+
+## [0.3.1] - 2026-10-10
+
+### Changed
+
+- `RegionSelector` migrated to shadcn `Select` (`use client`), lazy localStorage init — fixes `set-state-in-effect` lint
+- `layout.tsx` wrapped in shadcn `TooltipProvider`
+
+## [0.3.0] - 2026-10-10
+
+### Added
+
+- shadcn/ui base-nova init: `components.json`, `src/lib/utils.ts`, `button`, `select`, `dialog`, `popover`, `tooltip`
+- `.opencode/skills/my-ui/` — 5 UI laws + Next/Tailwind v4 wiring + verification
+
+### Fixed
+
+- Law 3: removed `uppercase` from `AnimeHero` stats + `StreamingProviders` section, sentence case only
+- Theme: mapped shadcn `:root`/`.dark` to violet dark (`#0a0a0f` / `#7c6df0`), removed `@theme inline` collisions
+
+### Known
+
+- Custom `Skeleton.tsx` kept, shadcn skeleton skipped (Windows filename collision)
+- `TooltipProvider` not yet wrapped in layout
+- `npm run lint` has 2 pre-existing `set-state-in-effect` errors + 1 unused import, unrelated to UI pass
+
 ## [0.2.0] - 2026-06-13
 
 ### Added
