@@ -118,3 +118,34 @@ export type AnimeFormat =
   | 'OVA'
   | 'ONA'
   | 'MUSIC';
+
+// ─── Search Filters ────────────────────────────────────────────────────────────
+
+export interface SearchFilters {
+  genre?: string;
+  studio?: string;
+  year?: number;
+  season?: AnimeSeason;
+  format?: AnimeFormat;
+  status?: AnimeStatus;
+  sort?: SearchSort;
+}
+
+export type SearchSort =
+  | 'SEARCH_MATCH'
+  | 'POPULARITY_DESC'
+  | 'TRENDING_DESC'
+  | 'SCORE_DESC'
+  | 'START_DATE_DESC'
+  | 'UPDATED_AT_DESC';
+
+// ─── Calendar ────────────────────────────────────────────────────────────────────
+
+export interface AiringScheduleItem {
+  id: number;
+  episode: number;
+  airingAt: number;
+  timeUntilAiring: number;
+  media: AnimeSearchResult;
+  dayName?: string;
+}

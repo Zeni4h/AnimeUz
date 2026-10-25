@@ -3,12 +3,13 @@ import { Suspense } from 'react';
 import { searchAnime } from '@/lib/anilist/client';
 import { AnimeCard } from '@/components/search/AnimeCard';
 import { SearchBar } from '@/components/search/SearchBar';
+import { FilterBar } from '@/components/search/FilterBar';
 import { AnimeCardSkeleton } from '@/components/ui/Skeleton';
-import type { AnimeSearchResult } from '@/types/anime';
+import type { AnimeSearchResult, SearchFilters } from '@/types/anime';
 import type { AniListMedia } from '@/lib/anilist/types';
 
 interface SearchPageProps {
-  searchParams: Promise<{ q?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; genre?: string; studio?: string; year?: string; season?: string; format?: string; status?: string; sort?: string }>;
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
@@ -45,7 +46,19 @@ function normalizeMedia(media: AniListMedia): AnimeSearchResult {
   };
 }
 
-async function SearchResults({ query, page }: { query: string; page: number }) {
+function buildFilters(sp: Awaited<SearchPageProps['searchParams']>): SearchFilters {
+  const filters: SearchFilters = {};
+  if (sp.genre) filters.genre = sp.genre;
+  if (sp.studio) filters.studio = sp.studio;
+  if (sp.year) filters.year = parseInt(sp.year, 10);
+  if (sp.season) filters.season = sp.season as SearchFilters['season'];
+  if (sp.format) filters.format = sp.format as SearchFilters['format'];
+  if (sp.status) filters.status = sp.status as SearchFilters['status'];
+  if (sp.sort) filters.sort = sp.sort as SearchFilters['sort'];
+  return filters;
+}
+
+async function SearchResults({ query, page, filters }: { query: string; page: number; filters: SearchFilters }) {
   if (!query) return null;
 
   let results: AnimeSearchResult[] = [];
@@ -53,7 +66,7 @@ async function SearchResults({ query, page }: { query: string; page: number }) {
   let error = false;
 
   try {
-    const res = await searchAnime(query, page, 24);
+    const res = await searchAnime(query, page, 24, filters);
     results = res.data.Page.media.map(normalizeMedia);
     total = res.data.Page.pageInfo.total;
   } catch {
@@ -146,8 +159,10 @@ function SearchSkeletonGrid() {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const { q = '', page: pageStr = '1' } = await searchParams;
+  const sp = await searchParams;
+  const { q = '', page: pageStr = '1' } = sp;
   const page = Math.max(1, parseInt(pageStr, 10) || 1);
+  const filters = buildFilters(sp);
 
   return (
     <div style={{ paddingTop: '64px', minHeight: '100vh' }}>
@@ -182,11 +197,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
       </div>
 
+      {/* Filter bar */}
+      {q && <FilterBar initialQuery={q} />}
+
       {/* Results */}
       <div className="container-page" style={{ padding: '2rem 1.5rem' }}>
         {q ? (
           <Suspense fallback={<SearchSkeletonGrid />}>
-            <SearchResults query={q} page={page} />
+            <SearchResults query={q} page={page} filters={filters} />
           </Suspense>
         ) : (
           <div

@@ -1,7 +1,18 @@
 // AniList GraphQL query definitions
 
 export const SEARCH_ANIME = `
-  query SearchAnime($search: String!, $page: Int, $perPage: Int) {
+  query SearchAnime(
+    $search: String!
+    $page: Int
+    $perPage: Int
+    $genre: String
+    $studio: String
+    $season: MediaSeason
+    $seasonYear: Int
+    $format: MediaFormat
+    $status: MediaStatus
+    $sort: [MediaSort]
+  ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
@@ -10,7 +21,17 @@ export const SEARCH_ANIME = `
         hasNextPage
         perPage
       }
-      media(search: $search, type: ANIME, sort: SEARCH_MATCH) {
+      media(
+        search: $search
+        type: ANIME
+        sort: $sort
+        genre_in: $genre
+        studio: $studio
+        season: $season
+        seasonYear: $seasonYear
+        format: $format
+        status: $status
+      ) {
         id
         title {
           romaji
@@ -127,6 +148,46 @@ export const GET_TRENDING_ANIME = `
         season
         seasonYear
         format
+      }
+    }
+  }
+`;
+
+export const GET_AIRING_SCHEDULE = `
+  query GetAiringSchedule($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      airingSchedules(notYetAired: true, sort: TIME) {
+        id
+        episode
+        airingAt
+        timeUntilAiring
+        media {
+          id
+          title {
+            romaji
+            english
+            native
+          }
+          coverImage {
+            large
+            medium
+            color
+          }
+          format
+          status
+          season
+          seasonYear
+          genres
+          episodes
+          averageScore
+        }
       }
     }
   }

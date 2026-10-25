@@ -116,8 +116,6 @@ function ProviderSection({
           fontFamily: 'var(--font-heading)',
           fontWeight: 600,
           color: 'var(--color-text-muted)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.07em',
           marginBottom: '0.75rem',
         }}
       >

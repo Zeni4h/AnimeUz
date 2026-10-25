@@ -191,31 +191,31 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
             >
               {anime.episodes && (
                 <div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Episodes</span>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)' }}>Episodes</span>
                   <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{anime.episodes}</span>
                 </div>
               )}
               {anime.duration && (
                 <div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Duration</span>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)' }}>Duration</span>
                   <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{anime.duration} min</span>
                 </div>
               )}
               {studio && (
                 <div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Studio</span>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)' }}>Studio</span>
                   <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{studio}</span>
                 </div>
               )}
               {anime.startDate && (
                 <div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Aired</span>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)' }}>Aired</span>
                   <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>{formatDate(anime.startDate)}</span>
                 </div>
               )}
               {anime.popularity && (
                 <div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Popularity</span>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', display: 'block', fontFamily: 'var(--font-heading)' }}>Popularity</span>
                   <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-heading)', fontWeight: 600 }}>#{anime.popularity.toLocaleString()}</span>
                 </div>
               )}
